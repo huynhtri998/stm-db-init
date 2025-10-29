@@ -2,7 +2,7 @@ SET search_path = user_service, public;
 
 -- USERS
 CREATE TABLE IF NOT EXISTS users (
-                                     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     email CITEXT NOT NULL,
     username CITEXT NOT NULL,
     password_hash TEXT NOT NULL,
@@ -23,15 +23,15 @@ CREATE TABLE IF NOT EXISTS users (
 
 -- USER ROLES (simple RBAC)
 CREATE TABLE IF NOT EXISTS roles (
-                                     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     name CITEXT NOT NULL UNIQUE,
     description TEXT
     );
 
 CREATE TABLE IF NOT EXISTS user_roles (
-                                          user_id UUID NOT NULL,
-                                          role_id UUID NOT NULL,
-                                          granted_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    user_id UUID NOT NULL,
+    role_id UUID NOT NULL,
+    granted_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
     PRIMARY KEY (user_id, role_id),
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
     FOREIGN KEY (role_id) REFERENCES roles(id) ON DELETE CASCADE

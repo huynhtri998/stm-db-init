@@ -2,7 +2,7 @@ SET search_path = notification_service, public;
 
 -- SUBSCRIPTIONS: which user wants which channel for which event
 CREATE TABLE IF NOT EXISTS notification_subscriptions (
-                                                          id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     user_id UUID NOT NULL,                 -- user_service.users
     channel notif_channel NOT NULL DEFAULT 'INAPP',
     is_enabled BOOLEAN NOT NULL DEFAULT TRUE,
@@ -12,7 +12,7 @@ CREATE TABLE IF NOT EXISTS notification_subscriptions (
 
 -- NOTIFICATIONS OUTBOX (event-driven or scheduled)
 CREATE TABLE IF NOT EXISTS notifications (
-                                             id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     user_id UUID NOT NULL,                 -- recipient
     channel notif_channel NOT NULL DEFAULT 'INAPP',
     title TEXT NOT NULL,
@@ -28,7 +28,7 @@ CREATE TABLE IF NOT EXISTS notifications (
 
 -- Simple “cron” table for periodic jobs (e.g., due reminders)
 CREATE TABLE IF NOT EXISTS scheduled_jobs (
-                                              id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     job_key CITEXT NOT NULL UNIQUE,         -- e.g. "due-reminder-v1"
     cron_expr TEXT NOT NULL,                 -- you can store cron or ISO intervals
     is_active BOOLEAN NOT NULL DEFAULT TRUE,

@@ -2,7 +2,7 @@ SET search_path = project_service, public;
 
 -- PROJECTS
 CREATE TABLE IF NOT EXISTS projects (
-                                        id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     owner_id UUID NOT NULL, -- FK to user_service.users(id)
     name TEXT NOT NULL,
     description TEXT,
@@ -18,9 +18,9 @@ CREATE TABLE IF NOT EXISTS projects (
 
 -- TEAM MEMBERS (optional collaborative feature)
 CREATE TABLE IF NOT EXISTS project_members (
-                                               project_id UUID NOT NULL,
-                                               user_id UUID NOT NULL,
-                                               added_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    project_id UUID NOT NULL,
+    user_id UUID NOT NULL,
+    added_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
     is_admin BOOLEAN NOT NULL DEFAULT FALSE,
     PRIMARY KEY (project_id, user_id)
     );

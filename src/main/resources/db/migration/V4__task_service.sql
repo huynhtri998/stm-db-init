@@ -2,7 +2,7 @@ SET search_path = task_service, public;
 
 -- TASKS
 CREATE TABLE IF NOT EXISTS tasks (
-                                     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     project_id UUID,             -- FK -> project_service.projects(id)
     assignee_id UUID,            -- FK -> user_service.users(id)
     title TEXT NOT NULL,
@@ -25,7 +25,7 @@ CREATE TABLE IF NOT EXISTS tasks (
 
 -- TAGS
 CREATE TABLE IF NOT EXISTS tags (
-                                    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     owner_id UUID NOT NULL,      -- user who created tag (user_service.users)
     name CITEXT NOT NULL,
     color TEXT,                  -- hex or token
@@ -35,9 +35,9 @@ CREATE TABLE IF NOT EXISTS tags (
 
 -- M:N TASK_TAGS
 CREATE TABLE IF NOT EXISTS task_tags (
-                                         task_id UUID NOT NULL,
-                                         tag_id UUID NOT NULL,
-                                         added_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    task_id UUID NOT NULL,
+    tag_id UUID NOT NULL,
+    added_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
     PRIMARY KEY (task_id, tag_id)
     );
 
